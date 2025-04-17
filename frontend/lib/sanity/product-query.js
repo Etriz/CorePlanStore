@@ -6,9 +6,14 @@ export async function getProducts() {
 		groq`*[_type == "product"] {
       _id,
       "categoryName": category->name,
-      description,
       name,
-      price,
+      sqft,
+      floors,
+      bedroomNum,
+      bathroomNum,
+      garageNum,
+      width,
+      depth,
       "productImage": {"alt": images[0].alt, "imageUrl": images[0].asset->url},
       "slug": slug.current
     }`
@@ -20,12 +25,31 @@ export async function getSelectedProducts(selectedCategory) {
 		groq`*[_type == "product" && category->name == $selectedCategory] {
       _id,
       "categoryName": category->name,
-      description,
       name,
+      description,
       price,
       "productImage": {"alt": images[0].alt, "imageUrl": images[0].asset->url},
       "slug": slug.current
     }`,
 		{ selectedCategory }
+	);
+}
+
+export async function getProductBySlug(slug) {
+	return client.fetch(
+		groq`*[_type == "product" && slug.current == $slug] {     
+      _id,
+      "categoryName": category->name,
+      name,
+      sqft,
+      floors,
+      bedroomNum,
+      bathroomNum,
+      garageNum,
+      width,
+      depth,
+      "productImage": {"alt": images[0].alt, "imageUrl": images[0].asset->url},
+      "slug": slug.current}`,
+		{ slug }
 	);
 }

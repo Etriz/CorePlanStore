@@ -66,7 +66,7 @@ export const productType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      title: 'Widtn',
+      title: 'Width',
       name: 'width',
       type: 'number',
       validation: (Rule) => Rule.required(),

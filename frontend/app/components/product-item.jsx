@@ -1,25 +1,48 @@
+'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 
 function ProductItem({ product, addCartItem, cartIds }) {
 	return (
-		<div className="flex flex-col items-center border border-red-600">
-			<Image
-				src={product?.productImage?.imageUrl}
-				alt={product?.productImage?.alt || product?.name}
-				className="max-w-full max-h-[180px] h-auto"
-				width="120"
-				height="120"
-			/>
-			<p className="text-[#151615] text-sm text-center pb-0 pt-4">
-				{product?.name}
-			</p>
-			<p className="text-[#151615] text-sm text-center pb-4 pt-0">{`$${product.price}.00`}</p>
-			<button
-				className="px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-teal-600 hover:text-white hover:cursor-pointer focus:relative rounded border border-gray-300 bg-white shadow-sm"
-				onClick={() => addCartItem(product)}>
-				Add to Cart
-			</button>
-		</div>
+		<Link href={`/plans/${product.slug}`}>
+			<div className="flex flex-col items-left bg-white p-5 rounded-md shadow-md hover:cursor-pointer hover:scale-105 transition-all">
+				<Image
+					src={product?.productImage?.imageUrl}
+					alt={product?.productImage?.alt || product?.name}
+					className="max-w-full max-h-[200px] h-auto mb-2 m-auto"
+					width="500"
+					height="500"
+				/>
+				<div className="flex flex-col">
+					<p className="text-xl text-[#151615]">{product?.name}</p>
+					<br />
+					<div className="flex flex-row justify-between">
+						<p className="text-[#151615]">Square Feet</p>
+						<p className="text-[#151615]">{product?.sqft}</p>
+					</div>
+					<hr className="border-gray-300" />
+					<div className="flex flex-row justify-between">
+						<p className="text-[#151615]">Bedrooms</p>
+						<p className="text-[#151615]">{product?.bedroomNum}</p>
+					</div>
+					<hr className="border-gray-300" />
+					<div className="flex flex-row justify-between">
+						<p className="text-[#151615]">Bathrooms</p>
+						<p className="text-[#151615]">{product?.bathroomNum}</p>
+					</div>
+					<hr className="border-gray-300" />
+					<div className="flex flex-row justify-between">
+						<p className="text-[#151615]">Garage</p>
+						<p className="text-[#151615]">{product?.garageNum}</p>
+					</div>
+					<hr className="border-gray-300" />
+					<div className="flex flex-row justify-between">
+						<p className="text-[#151615]">Floors</p>
+						<p className="text-[#151615]">{product?.floors}</p>
+					</div>
+				</div>
+			</div>
+		</Link>
 	);
 }
 
