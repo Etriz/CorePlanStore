@@ -48,6 +48,13 @@ export async function getProductBySlug(slug) {
       garageNum,
       width,
       depth,
+      foundation,
+      kitchen,
+      bedroom,
+      interior,
+      exterior,
+      special,
+      price,
       "productImage": {"alt": images[0].alt, "imageUrl": images[0].asset->url},
       "slug": slug.current}`,
 		{ slug }
