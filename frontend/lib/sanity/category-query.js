@@ -6,6 +6,7 @@ export async function getCategories() {
 		groq`*[_type == "category"] {
       _id,
       name,
+      "imageUrl": image.asset->url,
     }`
 	);
 }
