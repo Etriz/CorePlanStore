@@ -1,7 +1,7 @@
 import { groq } from 'next-sanity';
 import client from './client';
 
-export async function getProducts() {
+export async function getAllProducts() {
 	return client.fetch(
 		groq`*[_type == "product"] {
       _id,
@@ -12,22 +12,23 @@ export async function getProducts() {
       bedroomNum,
       bathroomNum,
       garageNum,
-      width,
-      depth,
       "productImage": {"alt": images[0].alt, "imageUrl": images[0].asset->url},
       "slug": slug.current
     }`
 	);
 }
 
-export async function getSelectedProducts(selectedCategory) {
+export async function getAllProductsByCategory(selectedCategory) {
 	return client.fetch(
 		groq`*[_type == "product" && category->name == $selectedCategory] {
       _id,
       "categoryName": category->name,
       name,
-      description,
-      price,
+      sqft,
+      floors,
+      bedroomNum,
+      bathroomNum,
+      garageNum,
       "productImage": {"alt": images[0].alt, "imageUrl": images[0].asset->url},
       "slug": slug.current
     }`,
