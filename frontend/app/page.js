@@ -1,12 +1,11 @@
 'use client';
 
-import Image from 'next/image';
 import Hero from './components/hero';
 import Products from './components/products';
+import Categories from './components/categories';
 
 import { getCategories } from '@/lib/sanity/category-query';
-import { ProductType, CategoryType } from '@/lib/sanity/types';
-import { getProducts, getSelectedProducts } from '@/lib/sanity/product-query';
+import { getAllProducts } from '@/lib/sanity/product-query';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
@@ -14,26 +13,10 @@ export default function Home() {
 	const [categories, setCategories] = useState([]);
 	const [selectedCategory, setSelectedCategory] = useState('');
 
-	const [cartItems, setCartItems] = useState([]);
-	const [cartItemsCount, setCartItemsCount] = useState(0);
-
-	const localStorageCartItem =
-		typeof window !== 'undefined' && localStorage.getItem('cart');
-	const parsedCartItems =
-		localStorageCartItem && JSON.parse(localStorageCartItem);
-	const itemsInCart = cartItems.length > 0 ? cartItems : parsedCartItems;
-
-	const localStorageCartItemCount =
-		typeof window !== 'undefined' && localStorage.getItem('cartCount');
-	const cartCount =
-		localStorageCartItemCount && JSON.parse(localStorageCartItemCount);
-	const itemCount = cartItemsCount || cartCount;
-
 	useEffect(() => {
 		async function fetchProducts() {
-			const allProducts = await getProducts();
+			const allProducts = await getAllProducts();
 			setProducts(allProducts);
-			console.log(allProducts[0].productImage);
 		}
 		fetchProducts();
 	}, []);
@@ -46,55 +29,58 @@ export default function Home() {
 		fetchCategories();
 	}, []);
 
-	const handleDrawerOpen = () => onOpen();
+	// ## cart to be implemented later ##
+	// const [cartItems, setCartItems] = useState([]);
+	// const [cartItemsCount, setCartItemsCount] = useState(0);
 
-	const handleProductFilter = async (category) => {
-		let product = [];
-		if (!!category) {
-			product = await getSelectedProducts(category);
-		} else {
-			product = await getProducts();
-		}
-		setProducts(product);
-		setSelectedCategory(category);
-	};
+	// const localStorageCartItem =
+	// 	typeof window !== 'undefined' && localStorage.getItem('cart');
+	// const parsedCartItems =
+	// 	localStorageCartItem && JSON.parse(localStorageCartItem);
+	// const itemsInCart = cartItems.length > 0 ? cartItems : parsedCartItems;
 
-	const addCartItem = (product) => {
-		let cart = [];
-		const count = cartCount + 1;
-		const products = [];
-		products.push(product);
+	// const localStorageCartItemCount =
+	// 	typeof window !== 'undefined' && localStorage.getItem('cartCount');
+	// const cartCount =
+	// 	localStorageCartItemCount && JSON.parse(localStorageCartItemCount);
+	// const itemCount = cartItemsCount || cartCount;
 
-		if (!!itemsInCart) {
-			cart = [...itemsInCart, ...products];
-		} else {
-			cart = [...products];
-		}
+	// const addCartItem = (product) => {
+	// 	let cart = [];
+	// 	const count = cartCount + 1;
+	// 	const products = [];
+	// 	products.push(product);
 
-		setCartItems(cart);
-		setCartItemsCount(count);
+	// 	if (!!itemsInCart) {
+	// 		cart = [...itemsInCart, ...products];
+	// 	} else {
+	// 		cart = [...products];
+	// 	}
 
-		updateLocalStorage(count, cart);
-	};
+	// 	setCartItems(cart);
+	// 	setCartItemsCount(count);
 
-	const removeItemFromCart = (product) => {
-		const count = cartCount - 1;
-		const filteredItems = itemsInCart.filter(
-			(item) => item._id !== product._id
-		);
+	// 	updateLocalStorage(count, cart);
+	// };
 
-		setCartItems(filteredItems);
-		setCartItemsCount(count);
+	// const removeItemFromCart = (product) => {
+	// 	const count = cartCount - 1;
+	// 	const filteredItems = itemsInCart.filter(
+	// 		(item) => item._id !== product._id
+	// 	);
 
-		updateLocalStorage(count, filteredItems);
-	};
+	// 	setCartItems(filteredItems);
+	// 	setCartItemsCount(count);
 
-	const updateLocalStorage = (count, cart) => {
-		if (typeof window !== 'undefined') {
-			localStorage.setItem('cartCount', JSON.stringify(count));
-			localStorage.setItem('cart', JSON.stringify(cart));
-		}
-	};
+	// 	updateLocalStorage(count, filteredItems);
+	// };
+
+	// const updateLocalStorage = (count, cart) => {
+	// 	if (typeof window !== 'undefined') {
+	// 		localStorage.setItem('cartCount', JSON.stringify(count));
+	// 		localStorage.setItem('cart', JSON.stringify(cart));
+	// 	}
+	// };
 
 	return (
 		<>
@@ -104,10 +90,10 @@ export default function Home() {
 					categories={categories}
 					handleProductFilter={handleProductFilter}
 				/> */}
+				<Categories categories={categories} />
 				<Products
 					products={products}
-					selectedCategory={selectedCategory}
-					addCartItem={addCartItem}
+					// addCartItem={addCartItem}
 				/>
 			</main>
 			{/* <Footer /> */}

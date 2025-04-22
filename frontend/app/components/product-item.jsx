@@ -9,7 +9,7 @@ function ProductItem({ product, addCartItem, cartIds }) {
 				<Image
 					src={product?.productImage?.imageUrl}
 					alt={product?.productImage?.alt || product?.name}
-					className="max-w-full max-h-[200px] h-auto mb-2 m-auto"
+					className="max-w-full max-h-[200px] h-auto mb-2 m-auto aspect-4/3"
 					width="500"
 					height="500"
 				/>

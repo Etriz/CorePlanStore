@@ -21,15 +21,6 @@ function Plan() {
 	return (
 		<div className="container max-w-5xl grid grid-cols-3 m-auto mt-6 mb-6">
 			{/* image area */}
-			{/* <div className="bg-white shadow-md p-6 m-4 col-span-2">
-				<Image
-					src={thisProduct?.productImage?.imageUrl}
-					alt={thisProduct?.productImage?.alt || thisProduct?.name}
-					className="h-auto m-auto aspect-4/3"
-					width="600"
-					height="600"
-				/>
-			</div> */}
 			<div className="grid gap-4 bg-white shadow-md p-6 m-4 col-span-2">
 				<div>
 					<Image

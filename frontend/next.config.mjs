@@ -5,7 +5,6 @@ const nextConfig = {
 			{
 				protocol: 'https',
 				hostname: '**',
-				// new URL('https://cdn.sanity.io/images/*')
 			},
 		],
 	},

@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Footer = () => {
+	const fullYear = new Date().getFullYear();
 	return (
 		<footer className="flex flex-col bg-gray-100 border-t border-teal-500">
 			<div className="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24">
@@ -98,7 +99,7 @@ const Footer = () => {
 				</div>
 
 				<p className="mt-12 text-center text-sm text-gray-500 lg:text-right">
-					Copyright &copy; 2022. All rights reserved.
+					Copyright &copy; {fullYear}. All rights reserved.
 				</p>
 			</div>
 		</footer>
