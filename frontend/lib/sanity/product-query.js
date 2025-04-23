@@ -56,7 +56,7 @@ export async function getProductBySlug(slug) {
       exterior,
       special,
       price,
-      "productImage": {"alt": images[0].alt, "imageUrl": images[0].asset->url},
+      "productGallery": images[]{alt,"imageUrl":asset->url},
       "slug": slug.current}`,
 		{ slug }
 	);
