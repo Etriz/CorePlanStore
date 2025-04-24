@@ -15,7 +15,7 @@ const Header = () => {
 						<a href="#" className="inline-block underline">
 							My Account
 						</a>
-						<a href="cart" className="inline-block underline">
+						<a href="/cart" className="inline-block underline">
 							Cart
 						</a>
 					</ul>

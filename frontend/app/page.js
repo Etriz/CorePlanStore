@@ -86,10 +86,10 @@ export default function Home() {
 		<>
 			{/* <Header /> */}
 			<main>
-				{/* <Hero
+				<Hero
 					categories={categories}
-					handleProductFilter={handleProductFilter}
-				/> */}
+					// handleProductFilter={handleProductFilter}
+				/>
 				<Categories categories={categories} />
 				<Products
 					products={products}
