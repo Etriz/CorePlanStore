@@ -5,12 +5,12 @@ const Dropdown = ({ name, field, options, handleChange }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedValue, setSelectedValue] = useState(name);
 
-	const toggleDropdown = () => {
+	const handleToggle = () => {
 		setIsOpen(!isOpen);
 	};
 	const handleOptionClick = (change) => {
-		setSelectedValue(change.option);
-		handleChange(change);
+		setSelectedValue(change);
+		handleChange({ [field]: change });
 		setIsOpen(false);
 	};
 
@@ -23,7 +23,7 @@ const Dropdown = ({ name, field, options, handleChange }) => {
 					id="baths-menu-button"
 					aria-expanded="true"
 					aria-haspopup="true"
-					onClick={toggleDropdown}>
+					onClick={handleToggle}>
 					{selectedValue}
 					<svg
 						className="-mr-1 size-5 text-gray-400"
@@ -50,7 +50,7 @@ const Dropdown = ({ name, field, options, handleChange }) => {
 						href="#"
 						role="menuitem"
 						className="block px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-teal-600 hover:text-white"
-						onClick={() => handleOptionClick({ [field]: option })}>
+						onClick={() => handleOptionClick(option)}>
 						{option}
 					</a>
 				))}
