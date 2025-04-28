@@ -10,30 +10,41 @@ const Search = () => {
 	const bathOptions = [1, 2, 3, 4, 5];
 	const [searchQuery, setSearchQuery] = useState({});
 
-	const router = useRouter();
-	const searchParams = useSearchParams();
-	const pathname = usePathname();
+	// const router = useRouter();
+	// const searchParams = useSearchParams();
+	// const pathname = usePathname();
 
 	const handleChange = (change) => {
 		setSearchQuery({ ...searchQuery, ...change });
 	};
-	const handleSearch = () => {
-		if (Object.keys(searchQuery).length > 0) {
-			const params = new URLSearchParams(searchParams);
-			params.set('query', searchQuery);
-			// console.log('params', params);
-			router.replace(`${pathname}?${params.toString()}`);
+	const objectToQueryString = (obj) => {
+		const params = [];
+		for (const key in obj) {
+			if (obj.hasOwnProperty(key)) {
+				params.push(
+					`${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`
+				);
+			}
 		}
+		return params.join('&');
 	};
-	const createQueryString = useCallback(
-		(name, value) => {
-			const params = new URLSearchParams(searchParams.toString());
-			params.set(name, value);
+	// const handleSearch = () => {
+	// 	if (Object.keys(searchQuery).length > 0) {
+	// 		const params = new URLSearchParams(searchParams);
+	// 		params.set('query', searchQuery);
+	// 		// console.log('params', params);
+	// 		router.replace(`${pathname}?${params.toString()}`);
+	// 	}
+	// };
+	// const createQueryString = useCallback(
+	// 	(name, value) => {
+	// 		const params = new URLSearchParams(searchParams.toString());
+	// 		params.set(name, value);
 
-			return params.toString();
-		},
-		[searchParams]
-	);
+	// 		return params.toString();
+	// 	},
+	// 	[searchParams]
+	// );
 	return (
 		<>
 			<label htmlFor="minSqft" className="relative">
@@ -54,24 +65,22 @@ const Search = () => {
 			</label>
 			<Dropdown
 				name="Beds"
-				field="bedSelectedValue"
 				options={bedOptions}
 				handleChange={handleChange}
 			/>
 			<Dropdown
 				name="Baths"
-				field="bathSelectedValue"
 				options={bathOptions}
 				handleChange={handleChange}
 			/>
-			<Link
+			<a
 				className="block w-24 rounded-md bg-teal-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-teal-700 cursor-pointer"
-				// href="/search"
-				href={'/search' + '?' + createQueryString('sort', 'desc')}
+				href={`/search?${objectToQueryString(searchQuery)}`}
+				// href={'/search' + '?' + createQueryString('sort', 'desc')}
 				// onClick={handleSearch}
 			>
 				Search
-			</Link>
+			</a>
 		</>
 	);
 };

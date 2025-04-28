@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-const Dropdown = ({ name, field, options, handleChange }) => {
+const Dropdown = ({ name, options, handleChange }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedValue, setSelectedValue] = useState(name);
 
@@ -10,7 +10,7 @@ const Dropdown = ({ name, field, options, handleChange }) => {
 	};
 	const handleOptionClick = (change) => {
 		setSelectedValue(change);
-		handleChange({ [field]: change });
+		handleChange({ [name.toLowerCase()]: change });
 		setIsOpen(false);
 	};
 
