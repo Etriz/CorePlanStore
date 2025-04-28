@@ -1,8 +1,21 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
+	const router = useRouter();
+	const [searchValue, setSearchValue] = useState('');
+	const handleChange = (e) => {
+		setSearchValue(e.target.value);
+	};
+	const handleKeyPress = (e) => {
+		if (e.key === 'Enter') {
+			if (searchValue != '') {
+				router.push(`/search?number=${searchValue}`);
+			}
+		}
+	};
 	return (
 		<header className="bg-white">
 			{/* top link bar */}
@@ -74,11 +87,14 @@ const Header = () => {
 									id="PlanNumber"
 									placeholder="Plan Number"
 									className="peer mt-0.5 p-2 w-full rounded-md border border-gray-200 shadow-sm sm:text-sm"
+									value={searchValue}
+									onChange={handleChange}
+									onKeyDown={handleKeyPress}
 								/>
 							</label>
 							<a
 								className="block rounded-md bg-teal-600 px-5 py-2 text-sm font-medium text-white transition hover:bg-teal-700"
-								href="#">
+								href={`/search?number=${searchValue}`}>
 								Search
 							</a>
 						</div>

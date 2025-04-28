@@ -1,57 +1,46 @@
 'use client';
 
-// import SearchInput from '@/components/SearchInput';
-import { useRouter } from 'next/navigation';
+import { getProductsByNumberSearch } from '@/lib/sanity/product-query';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import ProductItem from '../components/product-item';
 
 export const SearchPage = () => {
-	const router = useRouter();
-	// const {
-	// 	query: { query: queryFromUrl },
-	// } = useRouter();
-
-	// a state to store the search string
-	const [searchString, setSearchString] = useState(
-		typeof queryFromUrl === 'string' ? queryFromUrl : ''
-	);
+	const searchParams = useSearchParams();
+	const number = searchParams.get('number');
+	const minsqft = searchParams.get('minsqft');
+	const maxsqft = searchParams.get('maxsqft');
+	const bedroomNum = searchParams.get('beds');
+	const bathroomNum = searchParams.get('baths');
+	// // a state to store the search results
 	const [searchResults, setSearchResults] = useState([]);
 
-	async function getResponse() {
-		// query should be the URL that your search will be executed on.
-		const query = `/search?query=${searchString}`;
-		const response = await fetch(query, {
-			method: 'GET',
-		});
-
-		const data = await response.json(); // Extracting data as a JSON Object from the response
-		setSearchResults(data);
-	}
-
-	const handleClickUser = async () => {
-		if (searchString === '' || searchString.trim() === '') return;
-		getResponse();
-		router.push({
-			pathname: '/search',
-			query: { query: searchString },
-		});
-	};
-
 	useEffect(() => {
-		if (searchString !== '') {
-			handleClickUser();
+		async function fetchProducts() {
+			const products = await getProductsByNumberSearch(number);
+			console.log(products);
+			setSearchResults(products);
 		}
+		fetchProducts();
 	}, []);
 
 	return (
 		<div className="py-16 container m-auto">
 			<h1>Search Page</h1>
-			{/* <SearchInput
-				value={searchString}
-				onChange={(e) => setSearchString(e.target.value)}
-				onClick={handleClickUser}
-			/> */}
-			<div className="wrapper">
-				{searchResults.map((result) => getCardByType(result))}
+			<p>{number}</p>
+			<p>{minsqft}</p>
+			<p>{maxsqft}</p>
+			<p>{bedroomNum}</p>
+			<p>{bathroomNum}</p>
+			<div className="grid grid-cols-1 gap-6 items-end md:grid-cols-5">
+				{searchResults.length > 0
+					? searchResults.map((product, index) => (
+							<ProductItem
+								key={`${product._id}-${index}`}
+								product={product}
+							/>
+						))
+					: 'There are no plans to display'}
 			</div>
 		</div>
 	);

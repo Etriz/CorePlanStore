@@ -61,3 +61,20 @@ export async function getProductBySlug(slug) {
 		{ slug }
 	);
 }
+
+export async function getProductsByNumberSearch(number) {
+	return client.fetch(
+		groq`*[_type == "product" && name match $number] {     
+      _id,
+      "categoryName": category->name,
+      name,
+      sqft,
+      floors,
+      bedroomNum,
+      bathroomNum,
+      garageNum,
+      "productImage": {"alt": images[0].alt, "imageUrl": images[0].asset->url},
+      "slug": slug.current}`,
+		{ number }
+	);
+}

@@ -62,7 +62,7 @@ function Plan() {
 						{gallery.slice(1).map((image, index) => (
 							<div onClick={() => openLightboxOnSlide(index + 2)}>
 								<Image
-									key={`image-${index}`}
+									key={`${image._id}-${index}`}
 									className="object-cover object-center h-20 max-w-full rounded-lg cursor-pointer aspect-4/3"
 									src={image?.imageUrl}
 									alt={image?.alt || 'gallery-image'}
