@@ -78,3 +78,7 @@ export async function getProductsByNumberSearch(number) {
 		{ number }
 	);
 }
+
+export async function getProductsByDropdownSearch(query) {
+	return client.fetch(query);
+}

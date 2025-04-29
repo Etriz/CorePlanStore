@@ -1,7 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
-import { useState, useCallback } from 'react';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 import Dropdown from './dropdown';
 
@@ -9,10 +7,6 @@ const Search = () => {
 	const bedOptions = [1, 2, 3, 4, 5];
 	const bathOptions = [1, 2, 3, 4, 5];
 	const [searchQuery, setSearchQuery] = useState({});
-
-	// const router = useRouter();
-	// const searchParams = useSearchParams();
-	// const pathname = usePathname();
 
 	const handleChange = (change) => {
 		setSearchQuery({ ...searchQuery, ...change });
@@ -28,23 +22,7 @@ const Search = () => {
 		}
 		return params.join('&');
 	};
-	// const handleSearch = () => {
-	// 	if (Object.keys(searchQuery).length > 0) {
-	// 		const params = new URLSearchParams(searchParams);
-	// 		params.set('query', searchQuery);
-	// 		// console.log('params', params);
-	// 		router.replace(`${pathname}?${params.toString()}`);
-	// 	}
-	// };
-	// const createQueryString = useCallback(
-	// 	(name, value) => {
-	// 		const params = new URLSearchParams(searchParams.toString());
-	// 		params.set(name, value);
 
-	// 		return params.toString();
-	// 	},
-	// 	[searchParams]
-	// );
 	return (
 		<>
 			<label htmlFor="minSqft" className="relative">
@@ -75,10 +53,7 @@ const Search = () => {
 			/>
 			<a
 				className="block w-24 rounded-md bg-teal-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-teal-700 cursor-pointer"
-				href={`/search?${objectToQueryString(searchQuery)}`}
-				// href={'/search' + '?' + createQueryString('sort', 'desc')}
-				// onClick={handleSearch}
-			>
+				href={`/search?${objectToQueryString(searchQuery)}`}>
 				Search
 			</a>
 		</>
