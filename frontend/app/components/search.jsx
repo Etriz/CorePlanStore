@@ -6,9 +6,11 @@ import Dropdown from './dropdown';
 const Search = () => {
 	const bedOptions = [1, 2, 3, 4, 5];
 	const bathOptions = [1, 2, 3, 4, 5];
+	const [minSqft, setMinSqft] = useState('');
+	const [maxSqft, setMaxSqft] = useState('');
 	const [searchQuery, setSearchQuery] = useState({});
 
-	const handleChange = (change) => {
+	const handleDropdownChange = (change) => {
 		setSearchQuery({ ...searchQuery, ...change });
 	};
 	const objectToQueryString = (obj) => {
@@ -31,6 +33,11 @@ const Search = () => {
 					id="minSqft"
 					placeholder="Sq Ft Min"
 					className="mt-0.5 p-2 w-24 rounded-md border border-gray-200 shadow-sm sm:text-sm bg-white"
+					value={minSqft}
+					onChange={(e) => {
+						setMinSqft(e.target.value);
+						handleDropdownChange({ minsqft: e.target.value });
+					}}
 				/>
 			</label>
 			<label htmlFor="maxSqft" className="relative">
@@ -39,17 +46,22 @@ const Search = () => {
 					id="maxSqft"
 					placeholder="Sq Ft Max"
 					className="mt-0.5 p-2 w-24 rounded-md border border-gray-200 shadow-sm sm:text-sm bg-white"
+					value={maxSqft}
+					onChange={(e) => {
+						setMaxSqft(e.target.value);
+						handleDropdownChange({ maxsqft: e.target.value });
+					}}
 				/>
 			</label>
 			<Dropdown
 				name="Beds"
 				options={bedOptions}
-				handleChange={handleChange}
+				handleChange={handleDropdownChange}
 			/>
 			<Dropdown
 				name="Baths"
 				options={bathOptions}
-				handleChange={handleChange}
+				handleChange={handleDropdownChange}
 			/>
 			<a
 				className="block w-24 rounded-md bg-teal-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-teal-700 cursor-pointer"
