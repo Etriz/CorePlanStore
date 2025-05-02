@@ -1,23 +1,32 @@
 import React from 'react';
 import { useState } from 'react';
 import SearchFilterCheckbox from './search-filter-checkbox';
+import CategoryItem from './category-item';
 
-const SearchFilter = ({ searchParams, searchResults, searchCategories }) => {
+const SearchFilter = ({
+	searchParams,
+	searchResults,
+	searchCategories,
+	set,
+}) => {
 	const bedOptions = [1, 2, 3, 4, 5];
 	const bathOptions = [1, 2, 3, 4, 5];
 	const floors = [1, 2];
 
-	const [filteredResults, setFilteredResults] = useState();
 	const { minsqft, maxsqft, beds, baths } = searchParams;
 
 	const handleStyleClick = (item) => {
-		console.log(item);
+		console.log('item', item);
+		const results = searchResults.filter(
+			(e) => e.categoryName?.toString() == item?.toString()
+		);
+		setFilteredResults(results);
 	};
 
 	return (
 		<div className="rounded-md m-2">
 			<div className="rounded-md bg-gray-100 p-2">
-				<h2>Filter</h2>
+				<h2>Filter Search Results</h2>
 				<hr className="text-gray-300" />
 				<h2>Beds</h2>
 				<div className="flex gap-2">
@@ -25,7 +34,7 @@ const SearchFilter = ({ searchParams, searchResults, searchCategories }) => {
 						<SearchFilterCheckbox
 							name="beds"
 							option={option}
-							paramChecked={option.toString() == beds.toString()}
+							paramChecked={option.toString() == beds?.toString()}
 							key={`${option}-${index}`}
 						/>
 					))}
@@ -36,7 +45,9 @@ const SearchFilter = ({ searchParams, searchResults, searchCategories }) => {
 						<SearchFilterCheckbox
 							name="baths"
 							option={option}
-							paramChecked={option.toString() == baths.toString()}
+							paramChecked={
+								option.toString() == baths?.toString()
+							}
 							key={`${option}-${index}`}
 						/>
 					))}

@@ -8,22 +8,16 @@ import ProductItem from '../components/product-item';
 import SearchFilter from '../components/search-filter';
 
 export const SearchPage = () => {
-	// const searchParams = useSearchParams();
 	const searchParams = Object.fromEntries(useSearchParams());
 	const number = searchParams.number;
 	const minsqft = searchParams.minsqft;
 	const maxsqft = searchParams.maxsqft;
 	const beds = searchParams.beds;
 	const baths = searchParams.baths;
-	// const searchParams = Object.fromEntries(useSearchParams());
-	// const number = searchParams.get('number');
-	// const minsqft = searchParams.get('minsqft');
-	// const maxsqft = searchParams.get('maxsqft');
-	// const beds = searchParams.get('beds');
-	// const baths = searchParams.get('baths');
-	// // a state to store the search results
+
 	const [searchResults, setSearchResults] = useState([]);
 	const [searchCategories, setSearchCategories] = useState([]);
+	const [filteredResults, setFilteredResults] = useState();
 
 	const query = `*[_type == "product" ${minsqft ? ` && sqft > ${minsqft}` : ''}${maxsqft ? ` && sqft < ${maxsqft}` : ''}${beds ? ` && bedroomNum == ${beds}` : ''} ${baths ? ` && bathroomNum == ${baths}` : ''}] {     
 		_id,
@@ -91,6 +85,7 @@ export const SearchPage = () => {
 						searchResults={searchResults}
 						searchParams={searchParams}
 						searchCategories={searchCategories}
+						setFilteredResults={setFilteredResults}
 					/>
 				</div>
 				<div className="lg:col-span-3">
