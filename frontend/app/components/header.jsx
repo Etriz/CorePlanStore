@@ -1,10 +1,10 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 const Header = () => {
-	const router = useRouter();
+	const pathName = usePathname();
 	const [searchValue, setSearchValue] = useState('');
 	const handleChange = (e) => {
 		setSearchValue(e.target.value);
@@ -12,7 +12,7 @@ const Header = () => {
 	const handleKeyPress = (e) => {
 		if (e.key === 'Enter') {
 			if (searchValue != '') {
-				router.push(`/search?number=${searchValue}`);
+				window.location.href = `/search?number=${searchValue}`;
 			}
 		}
 	};
