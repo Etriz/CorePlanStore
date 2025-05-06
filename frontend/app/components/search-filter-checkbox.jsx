@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 
-const SearchFilterCheckbox = ({ name, option, paramChecked }) => {
-	const [checked, setChecked] = useState(paramChecked);
+const SearchFilterCheckbox = ({ option, handleStyleClick }) => {
+	const [checked, setChecked] = useState(false);
 
 	const handleChange = () => {
 		setChecked(!checked);
@@ -11,14 +11,14 @@ const SearchFilterCheckbox = ({ name, option, paramChecked }) => {
 		<div className="flex">
 			<input
 				type="checkbox"
-				id={`${name}${option}`}
+				id={option}
 				className="peer accent-teal-600"
 				checked={checked}
 				onChange={handleChange}
-				// onClick={() => console.log('click', option)}
+				onClick={() => handleStyleClick(option, !checked)}
 			/>
 			<label
-				htmlFor={`${name}${option}`}
+				htmlFor={option}
 				className="select-none cursor-pointer py-1 px-4">
 				{option}
 			</label>

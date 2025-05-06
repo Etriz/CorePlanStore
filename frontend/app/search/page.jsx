@@ -17,7 +17,7 @@ export const SearchPage = () => {
 
 	const [searchResults, setSearchResults] = useState([]);
 	const [searchCategories, setSearchCategories] = useState([]);
-	const [filteredResults, setFilteredResults] = useState();
+	const [filteredResults, setFilteredResults] = useState([]);
 
 	const query = `*[_type == "product" ${minsqft ? ` && sqft > ${minsqft}` : ''}${maxsqft ? ` && sqft < ${maxsqft}` : ''}${beds ? ` && bedroomNum == ${beds}` : ''} ${baths ? ` && bathroomNum == ${baths}` : ''}] {     
 		_id,
@@ -76,6 +76,13 @@ export const SearchPage = () => {
 						<div className="border border-gray-400 px-3 py-2">
 							Baths: {baths}
 						</div>
+						<button
+							className="border border-red-600 px-3 py-2 cursor-pointer"
+							onClick={() =>
+								console.log('Filtered Results', filteredResults)
+							}>
+							See Filtered
+						</button>
 					</>
 				)}
 			</div>
@@ -85,19 +92,27 @@ export const SearchPage = () => {
 						searchResults={searchResults}
 						searchParams={searchParams}
 						searchCategories={searchCategories}
+						filteredResults={filteredResults}
 						setFilteredResults={setFilteredResults}
 					/>
 				</div>
 				<div className="lg:col-span-3">
 					<div className="grid grid-cols-1 gap-6 items-end md:grid-cols-4">
-						{searchResults.length > 0
-							? searchResults.map((product, index) => (
+						{filteredResults.length > 0
+							? filteredResults.map((product, index) => (
 									<ProductItem
 										key={`${product._id}-${index}`}
 										product={product}
 									/>
 								))
-							: 'There are no plans to display'}
+							: searchResults.length > 0
+								? searchResults.map((product, index) => (
+										<ProductItem
+											key={`${product._id}-${index}`}
+											product={product}
+										/>
+									))
+								: 'There are no plans to display'}
 					</div>
 				</div>
 			</div>
