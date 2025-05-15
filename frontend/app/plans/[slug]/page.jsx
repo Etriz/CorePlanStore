@@ -31,6 +31,31 @@ function Plan() {
 		});
 	};
 
+	const getLocalStorage = () => {
+		if (typeof window !== undefined) {
+			return JSON.parse(localStorage.getItem('cart')) || [];
+		}
+	};
+	const updateLocalStorage = (cart) => {
+		if (typeof window !== 'undefined') {
+			localStorage.setItem('cart', JSON.stringify(cart));
+		}
+	};
+
+	const addItemToCart = () => {
+		const localCart = getLocalStorage();
+		// console.log('add item to cart', thisProduct);
+		const tempObj = {
+			_id: thisProduct._id,
+			name: thisProduct.name,
+			price: thisProduct.price,
+			productId: thisProduct.productGallery[0],
+			sqft: thisProduct.sqft,
+		};
+		localCart.push(tempObj);
+		updateLocalStorage(localCart);
+	};
+
 	return (
 		<>
 			<div className="container max-w-5xl m-auto mt-6 px-6">
@@ -60,16 +85,15 @@ function Plan() {
 					</div>
 					<div className="grid grid-cols-5 gap-4">
 						{gallery.slice(1).map((image, index) => (
-							<div onClick={() => openLightboxOnSlide(index + 2)}>
-								<Image
-									key={`${image._id}-${index}`}
-									className="object-cover object-center h-20 max-w-full rounded-lg cursor-pointer aspect-4/3"
-									src={image?.imageUrl}
-									alt={image?.alt || 'gallery-image'}
-									width="600"
-									height="600"
-								/>
-							</div>
+							<Image
+								onClick={() => openLightboxOnSlide(index + 2)}
+								key={`${image._id}-${index}`}
+								className="object-cover object-center h-20 max-w-full rounded-lg cursor-pointer aspect-4/3"
+								src={image?.imageUrl}
+								alt={image?.alt || 'gallery-image'}
+								width="600"
+								height="600"
+							/>
 						))}
 					</div>
 				</div>
@@ -88,32 +112,33 @@ function Plan() {
 					<div className="text-2xl my-4">
 						${thisProduct?.price}.00
 					</div>
-					<a
-						className="inline-flex items-center gap-2 rounded-md border border-teal-600 bg-teal-600 px-8 py-3 w-full text-white hover:bg-teal-700 focus:ring-3 focus:outline-hidden"
-						href="#">
-						<span className="text-md font-medium">
-							{' '}
-							Add To Cart{' '}
-						</span>
+					<div onClick={addItemToCart}>
+						<a
+							className="inline-flex items-center gap-2 rounded-md border border-teal-600 bg-teal-600 px-8 py-3 w-full text-white hover:bg-teal-700 focus:ring-3 focus:outline-hidden"
+							href="#">
+							<span className="text-md font-medium">
+								Add To Cart
+							</span>
 
-						<svg
-							className="size-5 rtl:rotate-180"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor">
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M17 8l4 4m0 0l-4 4m4-4H3"
-							/>
-						</svg>
-					</a>
+							<svg
+								className="size-5 rtl:rotate-180"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor">
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
+									d="M17 8l4 4m0 0l-4 4m4-4H3"
+								/>
+							</svg>
+						</a>
+					</div>
 				</div>
 				{/* features area */}
-				<div className="flow-root p-4 m-4 bg-white border border-gray-300">
-					<dl className="my-3 divide-y divide-gray-200 text-sm">
+				<div className="flow-root col-span-2 p-4 mx-4 mb-6 bg-white border border-gray-300 grid grid-cols-2 gap-4 max-w-5xl shadow-md ">
+					<dl className="mx-3 divide-y divide-gray-200 text-sm col-start-1">
 						<div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
 							<dt className="font-bold text-gray-900">
 								Square Feet
@@ -158,46 +183,58 @@ function Plan() {
 								{thisProduct?.foundation}
 							</dd>
 						</div>
-						<div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-							<dt className="font-bold text-gray-900">
-								Kitchen Features
-							</dt>
-							<dd className="text-gray-700 sm:col-span-2">
-								{thisProduct?.kitchen}
-							</dd>
-						</div>
-						<div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-							<dt className="font-bold text-gray-900">
-								Bedroom Features
-							</dt>
-							<dd className="text-gray-700 sm:col-span-2">
-								{thisProduct?.bedroom}
-							</dd>
-						</div>
-						<div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-							<dt className="font-bold text-gray-900">
-								Interior Features
-							</dt>
-							<dd className="text-gray-700 sm:col-span-2">
-								{thisProduct?.interior}
-							</dd>
-						</div>
-						<div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-							<dt className="font-bold text-gray-900">
-								Exterior Features
-							</dt>
-							<dd className="text-gray-700 sm:col-span-2">
-								{thisProduct?.exterior}
-							</dd>
-						</div>
-						<div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-							<dt className="font-bold text-gray-900">
-								Special Features
-							</dt>
-							<dd className="text-gray-700 sm:col-span-2">
-								{thisProduct?.special}
-							</dd>
-						</div>
+					</dl>
+					<dl className="mx-3 divide-y divide-gray-200 text-sm col-start-2">
+						{thisProduct?.kitchen ? (
+							<div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+								<dt className="font-bold text-gray-900">
+									Kitchen Features
+								</dt>
+								<dd className="text-gray-700 sm:col-span-2">
+									{thisProduct?.kitchen}
+								</dd>
+							</div>
+						) : null}
+						{thisProduct?.bedroom ? (
+							<div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+								<dt className="font-bold text-gray-900">
+									Bedroom Features
+								</dt>
+								<dd className="text-gray-700 sm:col-span-2">
+									{thisProduct?.bedroom}
+								</dd>
+							</div>
+						) : null}
+						{thisProduct?.interior ? (
+							<div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+								<dt className="font-bold text-gray-900">
+									Interior Features
+								</dt>
+								<dd className="text-gray-700 sm:col-span-2">
+									{thisProduct?.interior}
+								</dd>
+							</div>
+						) : null}
+						{thisProduct?.interior ? (
+							<div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+								<dt className="font-bold text-gray-900">
+									Exterior Features
+								</dt>
+								<dd className="text-gray-700 sm:col-span-2">
+									{thisProduct?.exterior}
+								</dd>
+							</div>
+						) : null}
+						{thisProduct?.special ? (
+							<div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+								<dt className="font-bold text-gray-900">
+									Special Features
+								</dt>
+								<dd className="text-gray-700 sm:col-span-2">
+									{thisProduct?.special}
+								</dd>
+							</div>
+						) : null}
 					</dl>
 				</div>
 			</div>

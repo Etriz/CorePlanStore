@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-const SearchFilterCheckbox = ({ option, handleStyleClick }) => {
+const SearchFilterCheckbox = ({ option, handleClick }) => {
 	const [checked, setChecked] = useState(false);
 
 	const handleChange = () => {
@@ -15,7 +15,7 @@ const SearchFilterCheckbox = ({ option, handleStyleClick }) => {
 				className="peer accent-teal-600"
 				checked={checked}
 				onChange={handleChange}
-				onClick={() => handleStyleClick(option, !checked)}
+				onClick={() => handleClick(option, !checked)}
 			/>
 			<label
 				htmlFor={option}

@@ -1,6 +1,6 @@
 import ProductItem from './product-item';
 
-const Products = ({ products, selectedCategory, addCartItem }) => {
+const Products = ({ products }) => {
 	const localStorageCart =
 		typeof window !== 'undefined' && localStorage.getItem('cart');
 	const itemsInCart = localStorageCart ? JSON.parse(localStorageCart) : [];
@@ -16,7 +16,6 @@ const Products = ({ products, selectedCategory, addCartItem }) => {
 							<ProductItem
 								key={`${product._id}-${index}`}
 								product={product}
-								addCartItem={addCartItem}
 								cartIds={cartIds}
 							/>
 						))

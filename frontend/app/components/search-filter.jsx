@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import SearchFilterNumbox from './search-filter-numbox';
 import SearchFilterCheckbox from './search-filter-checkbox';
 
@@ -16,10 +16,8 @@ const SearchFilter = ({
 
 	const { minsqft, maxsqft, beds, baths } = searchParams;
 
-	// const checkboxRef = useRef([]);
 	const handleStyleClick = (item, state) => {
-		console.log('item', item, 'checked?', state);
-		// console.log('checkboxRef', checkboxRef);
+		// console.log('item', item, 'checked?', state);
 		if (filteredResults.length == 0 && searchResults) {
 			if (state == true) {
 				const results = searchResults.filter(
@@ -44,6 +42,33 @@ const SearchFilter = ({
 			}
 		} else console.error('something wrong!', filteredResults);
 	};
+
+	// const handleFloorClick = (item, state) => {
+	// 	// console.log('item', item, 'checked?', state);
+	// 	if (filteredResults.length == 0 && searchResults) {
+	// 		if (state == true) {
+	// 			const results = searchResults.filter(
+	// 				(e) => e.floors?.toString() == item?.toString()
+	// 			);
+	// 			setFilteredResults(results);
+	// 		}
+	// 	} else if (filteredResults.length > 0 && searchResults) {
+	// 		if (state == true) {
+	// 			const results = searchResults.filter(
+	// 				(e) => e.floors?.toString() == item?.toString()
+	// 			);
+	// 			// console.log('results', results);
+	// 			setFilteredResults([...filteredResults, ...results]);
+	// 		}
+	// 		if (state == false) {
+	// 			const results = filteredResults.filter(
+	// 				(e) => e.floors?.toString() != item?.toString()
+	// 			);
+	// 			// console.log('results', results);
+	// 			setFilteredResults(results);
+	// 		}
+	// 	} else console.error('something wrong!', filteredResults);
+	// };
 
 	return (
 		<div className="rounded-md m-2">
@@ -83,12 +108,25 @@ const SearchFilter = ({
 						<SearchFilterCheckbox
 							option={item}
 							key={`${item}-${index}`}
-							handleStyleClick={handleStyleClick}
+							handleClick={handleStyleClick}
 						/>
 					))}
 				</div>
 				<hr className="text-gray-300" />
 			</div>
+			{/* <div className="p-2">
+				<h2>Floors</h2>
+				<div className="flex flex-col">
+					{floors?.map((item, index) => (
+						<SearchFilterCheckbox
+							option={item}
+							key={`${item}-${index}`}
+							handleClick={handleFloorClick}
+						/>
+					))}
+				</div>
+				<hr className="text-gray-300" />
+			</div> */}
 		</div>
 	);
 };
