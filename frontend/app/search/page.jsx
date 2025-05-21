@@ -8,7 +8,7 @@ import ProductItem from '../components/product-item';
 import SearchFilter from '../components/search-filter';
 
 export const SearchPage = () => {
-	const searchParams = Object.fromEntries(useSearchParams());
+	const searchParams = Object.fromEntries(useSearchParams()) || {};
 	const number = searchParams.number;
 	const minsqft = searchParams.minsqft;
 	const maxsqft = searchParams.maxsqft;
@@ -87,16 +87,16 @@ export const SearchPage = () => {
 				)}
 			</div>
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-8">
-				<div className="bg-white rounded-md">
-					<SearchFilter
-						searchResults={searchResults}
-						searchParams={searchParams}
-						searchCategories={searchCategories}
-						filteredResults={filteredResults}
-						setFilteredResults={setFilteredResults}
-					/>
-				</div>
-				<Suspense>
+				<Suspense fallback={<div>Searching ...</div>}>
+					<div className="bg-white rounded-md">
+						<SearchFilter
+							searchResults={searchResults}
+							searchParams={searchParams || null}
+							searchCategories={searchCategories}
+							filteredResults={filteredResults}
+							setFilteredResults={setFilteredResults}
+						/>
+					</div>
 					<div className="lg:col-span-3">
 						<div className="grid grid-cols-1 gap-6 items-end md:grid-cols-4">
 							{filteredResults.length > 0
