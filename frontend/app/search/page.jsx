@@ -3,7 +3,7 @@
 import { getProductsByNumberSearch } from '@/lib/sanity/product-query';
 import { getProductsByDropdownSearch } from '@/lib/sanity/product-query';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import ProductItem from '../components/product-item';
 import SearchFilter from '../components/search-filter';
 
@@ -96,25 +96,27 @@ export const SearchPage = () => {
 						setFilteredResults={setFilteredResults}
 					/>
 				</div>
-				<div className="lg:col-span-3">
-					<div className="grid grid-cols-1 gap-6 items-end md:grid-cols-4">
-						{filteredResults.length > 0
-							? filteredResults.map((product, index) => (
-									<ProductItem
-										key={`${product._id}-${index}`}
-										product={product}
-									/>
-								))
-							: searchResults.length > 0
-								? searchResults.map((product, index) => (
+				<Suspense>
+					<div className="lg:col-span-3">
+						<div className="grid grid-cols-1 gap-6 items-end md:grid-cols-4">
+							{filteredResults.length > 0
+								? filteredResults.map((product, index) => (
 										<ProductItem
 											key={`${product._id}-${index}`}
 											product={product}
 										/>
 									))
-								: 'There are no plans to display'}
+								: searchResults.length > 0
+									? searchResults.map((product, index) => (
+											<ProductItem
+												key={`${product._id}-${index}`}
+												product={product}
+											/>
+										))
+									: 'There are no plans to display'}
+						</div>
 					</div>
-				</div>
+				</Suspense>
 			</div>
 		</div>
 	);
