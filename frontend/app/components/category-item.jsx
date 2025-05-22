@@ -9,9 +9,9 @@ const CategoryItem = ({ category }) => {
 				<Image
 					src={category?.imageUrl}
 					alt={category?.name}
-					className="max-w-full max-h-[200px] h-auto mb-2 m-auto aspect-4/3"
-					width="500"
-					height="500"
+					className="max-w-full max-h-[200px] h-auto mb-2 m-auto aspect-square object-cover object-top"
+					width="300"
+					height="300"
 				/>
 				<div className="flex flex-col">
 					<p className="text-xl text-[#151615]">{category?.name}</p>

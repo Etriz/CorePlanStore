@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import SearchFilterNumbox from './search-filter-numbox';
 import SearchFilterCheckbox from './search-filter-checkbox';
 
@@ -12,7 +11,7 @@ const SearchFilter = ({
 }) => {
 	const bedOptions = [1, 2, 3, 4, 5];
 	const bathOptions = [1, 2, 3, 4, 5];
-	const floors = [1, 2];
+	const floors = [1, 2, 3];
 
 	const { minsqft, maxsqft, beds, baths } = searchParams;
 

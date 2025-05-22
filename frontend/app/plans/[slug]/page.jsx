@@ -76,7 +76,7 @@ function Plan() {
 				<div className="grid gap-4 bg-white shadow-md p-6 m-4 col-span-2 cursor-pointer">
 					<div onClick={() => openLightboxOnSlide(1)}>
 						<Image
-							className="h-auto w-full max-w-full rounded-md object-cover object-center h-auto m-auto aspect-4/3"
+							className="h-auto w-full max-w-full rounded-md object-cover object-center h-auto m-auto aspect-square"
 							src={gallery[0]?.imageUrl}
 							alt={gallery[0]?.alt}
 							width="600"
@@ -88,7 +88,7 @@ function Plan() {
 							<Image
 								onClick={() => openLightboxOnSlide(index + 2)}
 								key={`${image._id}-${index}`}
-								className="object-cover object-center h-20 max-w-full rounded-lg cursor-pointer aspect-4/3"
+								className="object-cover object-center h-20 max-w-full rounded-lg cursor-pointer aspect-square"
 								src={image?.imageUrl}
 								alt={image?.alt || 'gallery-image'}
 								width="600"

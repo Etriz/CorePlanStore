@@ -4,8 +4,8 @@ import { useState } from 'react';
 import Dropdown from './dropdown';
 
 const HeroSearch = () => {
-	const bedOptions = [1, 2, 3, 4, 5];
-	const bathOptions = [1, 2, 3, 4, 5];
+	const bedOptions = [1, 2, 3, 4, 5, 6];
+	const bathOptions = [1, 2, 3, 4, 5, 6];
 	const [minSqft, setMinSqft] = useState('');
 	const [maxSqft, setMaxSqft] = useState('');
 	const [searchQuery, setSearchQuery] = useState({});

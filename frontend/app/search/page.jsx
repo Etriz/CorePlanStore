@@ -1,8 +1,6 @@
 'use client';
 
-import { getProductsByNumberSearch } from '@/lib/sanity/product-query';
-import { getProductsByDropdownSearch } from '@/lib/sanity/product-query';
-import { useEffect, useState, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import SearchFilter from '../components/search-filter';
 import SearchResultsComponent from '../components/search-results';
 
@@ -13,44 +11,6 @@ export const SearchPage = () => {
 	const [filteredResults, setFilteredResults] = useState([]);
 
 	const { number, minsqft, maxsqft, beds, baths } = searchParams;
-
-	const query = `*[_type == "product" ${minsqft ? ` && sqft > ${minsqft}` : ''}${maxsqft ? ` && sqft < ${maxsqft}` : ''}${beds ? ` && bedroomNum == ${beds}` : ''} ${baths ? ` && bathroomNum == ${baths}` : ''}] {     
-		_id,
-		"categoryName": category->name,
-		name,
-		sqft,
-		floors,
-		bedroomNum,
-		bathroomNum,
-		garageNum,
-		"productImage": {"alt": images[0].alt, "imageUrl": images[0].asset->url},
-		"slug": slug.current}`;
-
-	const saveState = (search) => {
-		setSearchResults(search);
-		const tempSet = new Set();
-		for (const item of search) {
-			tempSet.add(item.categoryName);
-		}
-		const tempArray = Array.from(tempSet);
-		setSearchCategories(tempArray);
-	};
-
-	useEffect(() => {
-		if (number != null) {
-			async function fetchProducts() {
-				const products = await getProductsByNumberSearch(number);
-				saveState(products);
-			}
-			fetchProducts();
-		} else {
-			async function fetchProducts() {
-				const products = await getProductsByDropdownSearch(query);
-				saveState(products);
-			}
-			fetchProducts();
-		}
-	}, []);
 
 	return (
 		<div className="py-8 container m-auto">
@@ -81,24 +41,28 @@ export const SearchPage = () => {
 					</>
 				)}
 			</div>
-			<div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-8">
-				<div className="bg-white rounded-md">
-					<SearchFilter
-						searchParams={searchParams}
-						searchResults={searchResults}
-						searchCategories={searchCategories}
-						filteredResults={filteredResults}
-						setFilteredResults={setFilteredResults}
-					/>
+			<div>
+				<div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-8">
+					<div className="bg-white rounded-md">
+						<SearchFilter
+							searchParams={searchParams}
+							searchResults={searchResults}
+							searchCategories={searchCategories}
+							filteredResults={filteredResults}
+							setFilteredResults={setFilteredResults}
+						/>
+					</div>
+					<Suspense fallback={<div>Searching ...</div>}>
+						<SearchResultsComponent
+							setSearchParams={setSearchParams}
+							filteredResults={filteredResults}
+							searchResults={searchResults}
+							setSearchResults={setSearchResults}
+							setSearchCategories={setSearchCategories}
+						/>
+					</Suspense>
 				</div>
 			</div>
-			<Suspense fallback={<div>Searching ...</div>}>
-				<SearchResultsComponent
-					setSearchParams={setSearchParams}
-					filteredResults={filteredResults}
-					searchResults={searchResults}
-				/>
-			</Suspense>
 		</div>
 	);
 };
