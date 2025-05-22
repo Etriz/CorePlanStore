@@ -12,11 +12,7 @@ export const SearchPage = () => {
 	const [searchCategories, setSearchCategories] = useState([]);
 	const [filteredResults, setFilteredResults] = useState([]);
 
-	const number = searchParams.number;
-	const minsqft = searchParams.minsqft;
-	const maxsqft = searchParams.maxsqft;
-	const beds = searchParams.beds;
-	const baths = searchParams.baths;
+	const { number, minsqft, maxsqft, beds, baths } = searchParams;
 
 	const query = `*[_type == "product" ${minsqft ? ` && sqft > ${minsqft}` : ''}${maxsqft ? ` && sqft < ${maxsqft}` : ''}${beds ? ` && bedroomNum == ${beds}` : ''} ${baths ? ` && bathroomNum == ${baths}` : ''}] {     
 		_id,
@@ -88,6 +84,7 @@ export const SearchPage = () => {
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-8">
 				<div className="bg-white rounded-md">
 					<SearchFilter
+						searchParams={searchParams}
 						searchResults={searchResults}
 						searchCategories={searchCategories}
 						filteredResults={filteredResults}
