@@ -80,7 +80,7 @@ function Plan() {
 							src={gallery[0]?.imageUrl}
 							alt={gallery[0]?.alt}
 							width="600"
-							height="600"
+							height="450"
 						/>
 					</div>
 					<div className="grid grid-cols-5 gap-4">
@@ -92,7 +92,7 @@ function Plan() {
 								src={image?.imageUrl}
 								alt={image?.alt || 'gallery-image'}
 								width="600"
-								height="600"
+								height="450"
 							/>
 						))}
 					</div>

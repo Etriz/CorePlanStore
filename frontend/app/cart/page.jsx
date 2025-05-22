@@ -53,7 +53,7 @@ const Cart = () => {
 							alt={`${item.name} cart img`}
 							width="100"
 							height="100"
-							className="rounded-md"
+							className="rounded-md aspect-4/3"
 						/>
 						<div className="items-center">
 							<a
@@ -70,7 +70,7 @@ const Cart = () => {
 						<div>
 							<button
 								onClick={() => removeFromCart(item)}
-								className="px-2 py-1/2 m-1 rounded bg-red-700 text-white cursor-pointer float-right">
+								className="px-2 py-1/2 m-1 rounded bg-red-700 text-white cursor-pointer float-right hover:bg-red-800">
 								X
 							</button>
 						</div>

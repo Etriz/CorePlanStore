@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import Dropdown from './dropdown';
 
-const Search = () => {
+const HeroSearch = () => {
 	const bedOptions = [1, 2, 3, 4, 5];
 	const bathOptions = [1, 2, 3, 4, 5];
 	const [minSqft, setMinSqft] = useState('');
@@ -72,4 +72,4 @@ const Search = () => {
 	);
 };
 
-export default Search;
+export default HeroSearch;

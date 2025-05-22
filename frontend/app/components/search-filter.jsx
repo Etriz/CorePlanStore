@@ -16,6 +16,9 @@ const SearchFilter = ({
 
 	const { minsqft, maxsqft, beds, baths } = searchParams;
 
+	const handleFilterClick = (state) => {
+		console.log('click', state);
+	};
 	const handleStyleClick = (item, state) => {
 		// console.log('item', item, 'checked?', state);
 		if (filteredResults.length == 0 && searchResults) {
@@ -83,6 +86,7 @@ const SearchFilter = ({
 							option={option}
 							paramChecked={option.toString() == beds?.toString()}
 							key={`${option}-${index}`}
+							handleClick={handleFilterClick}
 						/>
 					))}
 				</div>
@@ -96,6 +100,7 @@ const SearchFilter = ({
 								option.toString() == baths?.toString()
 							}
 							key={`${option}-${index}`}
+							handleClick={handleFilterClick}
 						/>
 					))}
 				</div>
