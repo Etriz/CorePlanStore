@@ -2,22 +2,21 @@
 
 import { getProductsByNumberSearch } from '@/lib/sanity/product-query';
 import { getProductsByDropdownSearch } from '@/lib/sanity/product-query';
-import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
-import ProductItem from '../components/product-item';
 import SearchFilter from '../components/search-filter';
+import SearchResultsComponent from '../components/search-results';
 
 export const SearchPage = () => {
-	const searchParams = Object.fromEntries(useSearchParams()) || {};
+	const [searchParams, setSearchParams] = useState({});
+	const [searchResults, setSearchResults] = useState([]);
+	const [searchCategories, setSearchCategories] = useState([]);
+	const [filteredResults, setFilteredResults] = useState([]);
+
 	const number = searchParams.number;
 	const minsqft = searchParams.minsqft;
 	const maxsqft = searchParams.maxsqft;
 	const beds = searchParams.beds;
 	const baths = searchParams.baths;
-
-	const [searchResults, setSearchResults] = useState([]);
-	const [searchCategories, setSearchCategories] = useState([]);
-	const [filteredResults, setFilteredResults] = useState([]);
 
 	const query = `*[_type == "product" ${minsqft ? ` && sqft > ${minsqft}` : ''}${maxsqft ? ` && sqft < ${maxsqft}` : ''}${beds ? ` && bedroomNum == ${beds}` : ''} ${baths ? ` && bathroomNum == ${baths}` : ''}] {     
 		_id,
@@ -42,7 +41,7 @@ export const SearchPage = () => {
 	};
 
 	useEffect(() => {
-		if (searchParams.number != null) {
+		if (number != null) {
 			async function fetchProducts() {
 				const products = await getProductsByNumberSearch(number);
 				saveState(products);
@@ -87,37 +86,22 @@ export const SearchPage = () => {
 				)}
 			</div>
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-8">
-				<Suspense fallback={<div>Searching ...</div>}>
-					<div className="bg-white rounded-md">
-						<SearchFilter
-							searchResults={searchResults}
-							searchParams={searchParams || null}
-							searchCategories={searchCategories}
-							filteredResults={filteredResults}
-							setFilteredResults={setFilteredResults}
-						/>
-					</div>
-					<div className="lg:col-span-3">
-						<div className="grid grid-cols-1 gap-6 items-end md:grid-cols-4">
-							{filteredResults.length > 0
-								? filteredResults.map((product, index) => (
-										<ProductItem
-											key={`${product._id}-${index}`}
-											product={product}
-										/>
-									))
-								: searchResults.length > 0
-									? searchResults.map((product, index) => (
-											<ProductItem
-												key={`${product._id}-${index}`}
-												product={product}
-											/>
-										))
-									: 'There are no plans to display'}
-						</div>
-					</div>
-				</Suspense>
+				<div className="bg-white rounded-md">
+					<SearchFilter
+						searchResults={searchResults}
+						searchCategories={searchCategories}
+						filteredResults={filteredResults}
+						setFilteredResults={setFilteredResults}
+					/>
+				</div>
 			</div>
+			<Suspense fallback={<div>Searching ...</div>}>
+				<SearchResultsComponent
+					setSearchParams={setSearchParams}
+					filteredResults={filteredResults}
+					searchResults={searchResults}
+				/>
+			</Suspense>
 		</div>
 	);
 };
