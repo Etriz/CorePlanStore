@@ -9,16 +9,21 @@ const Products = ({ products }) => {
 	return (
 		<section className="py-16 container m-auto">
 			<div>
-				<h3 className="text-lg font-bold mb-10">{`Featured Products`}</h3>
+				<h3 className="text-lg font-bold mb-10">Featured Products</h3>
 				<div className="grid grid-cols-1 gap-6 items-end md:grid-cols-5">
 					{products.length > 0 ? (
-						products.map((product, index) => (
-							<ProductItem
-								key={`${product._id}-${index}`}
-								product={product}
-								cartIds={cartIds}
-							/>
-						))
+						products
+							.map((value) => ({ value, sort: Math.random() }))
+							.sort((a, b) => a.sort - b.sort)
+							.map(({ value }) => value)
+							.slice(1)
+							.map((product, index) => (
+								<ProductItem
+									key={`${product._id}-${index}`}
+									product={product}
+									cartIds={cartIds}
+								/>
+							))
 					) : (
 						<p>No Products to show at the moment</p>
 					)}

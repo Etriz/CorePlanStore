@@ -65,21 +65,23 @@ const SearchResultsComponent = ({
 	return (
 		<div className="col-span-3">
 			<div className="grid grid-cols-1 gap-6 items-end md:grid-cols-4">
-				{filteredResults.length > 0
-					? filteredResults.map((product, index) => (
-							<ProductItem
-								key={`${product._id}-${index}`}
-								product={product}
-							/>
-						))
-					: searchResults?.length > 0
-						? searchResults.map((product, index) => (
-								<ProductItem
-									key={`${product._id}-${index}`}
-									product={product}
-								/>
-							))
-						: 'There are no plans to display'}
+				{filteredResults.length > 0 ? (
+					filteredResults.map((product, index) => (
+						<ProductItem
+							key={`${product._id}-${index}`}
+							product={product}
+						/>
+					))
+				) : searchResults?.length > 0 ? (
+					searchResults.map((product, index) => (
+						<ProductItem
+							key={`${product._id}-${index}`}
+							product={product}
+						/>
+					))
+				) : (
+					<div>No results found</div>
+				)}
 			</div>
 		</div>
 	);
