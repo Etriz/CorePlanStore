@@ -22,10 +22,10 @@ const Header = () => {
 			<div className="border-b border-gray-200 px-4 py-2 text-gray-900">
 				<nav className="mx-auto flex max-w-screen-xl justify-end items-center gap-8 px-4 sm:px-6 lg:px-8">
 					<ul className="flex flex-row gap-4">
-						<a href="#" className="inline-block underline">
+						<a href="/" className="inline-block underline">
 							Sign Up/Login
 						</a>
-						<a href="#" className="inline-block underline">
+						<a href="/" className="inline-block underline">
 							My Account
 						</a>
 						<a href="/cart" className="inline-block underline">
@@ -56,7 +56,7 @@ const Header = () => {
 							<li>
 								<a
 									className="text-gray-500 transition hover:text-gray-500/75"
-									href="#">
+									href="/about">
 									About
 								</a>
 							</li>
@@ -64,7 +64,7 @@ const Header = () => {
 							<li>
 								<a
 									className="text-gray-500 transition hover:text-gray-500/75"
-									href="#">
+									href="/services">
 									Services
 								</a>
 							</li>
@@ -72,8 +72,8 @@ const Header = () => {
 							<li>
 								<a
 									className="text-gray-500 transition hover:text-gray-500/75"
-									href="#">
-									Projects
+									href="/products">
+									Products
 								</a>
 							</li>
 						</ul>

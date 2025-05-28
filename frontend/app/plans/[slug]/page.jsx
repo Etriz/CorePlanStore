@@ -115,7 +115,7 @@ function Plan() {
 					<div onClick={addItemToCart}>
 						<a
 							className="inline-flex items-center gap-2 rounded-md border border-teal-600 bg-teal-600 px-8 py-3 w-full text-white hover:bg-teal-700 focus:ring-3 focus:outline-hidden"
-							href="#">
+							href={'/cart'}>
 							<span className="text-md font-medium">
 								Add To Cart
 							</span>

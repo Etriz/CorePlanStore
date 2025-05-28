@@ -30,66 +30,62 @@ export default function Home() {
 	}, []);
 
 	// ## cart to be implemented later ##
-	const [cartItems, setCartItems] = useState([]);
-	const [cartItemsCount, setCartItemsCount] = useState(0);
+	// const [cartItems, setCartItems] = useState([]);
+	// const [cartItemsCount, setCartItemsCount] = useState(0);
 
-	const localStorageCartItem =
-		typeof window !== 'undefined' && localStorage.getItem('cart');
-	const parsedCartItems =
-		localStorageCartItem && JSON.parse(localStorageCartItem);
-	const itemsInCart = cartItems.length > 0 ? cartItems : parsedCartItems;
+	// const localStorageCartItem =
+	// 	typeof window !== 'undefined' && localStorage.getItem('cart');
+	// const parsedCartItems =
+	// 	localStorageCartItem && JSON.parse(localStorageCartItem);
+	// const itemsInCart = cartItems.length > 0 ? cartItems : parsedCartItems;
 
-	const localStorageCartItemCount =
-		typeof window !== 'undefined' && localStorage.getItem('cartCount');
-	const cartCount =
-		localStorageCartItemCount && JSON.parse(localStorageCartItemCount);
-	const itemCount = cartItemsCount || cartCount;
+	// const localStorageCartItemCount =
+	// 	typeof window !== 'undefined' && localStorage.getItem('cartCount');
+	// const cartCount =
+	// 	localStorageCartItemCount && JSON.parse(localStorageCartItemCount);
+	// const itemCount = cartItemsCount || cartCount;
 
-	const addCartItem = (product) => {
-		console.log('add to cart', product);
-		// const cart = [];
-		// const count = cartCount + 1;
-		// const products = [];
-		// products.push(product);
+	// const addCartItem = (product) => {
+	// 	console.log('add to cart', product);
+	// 	const cart = [];
+	// 	const count = cartCount + 1;
+	// 	const products = [];
+	// 	products.push(product);
 
-		// if (!!itemsInCart) {
-		// 	cart = [...itemsInCart, ...products];
-		// } else {
-		// 	cart = [...products];
-		// }
+	// 	if (!!itemsInCart) {
+	// 		cart = [...itemsInCart, ...products];
+	// 	} else {
+	// 		cart = [...products];
+	// 	}
 
-		// setCartItems(cart);
-		// setCartItemsCount(count);
+	// 	setCartItems(cart);
+	// 	setCartItemsCount(count);
 
-		// updateLocalStorage(count, cart);
-	};
+	// 	updateLocalStorage(count, cart);
+	// };
 
-	const removeItemFromCart = (product) => {
-		const count = cartCount - 1;
-		const filteredItems = itemsInCart.filter(
-			(item) => item._id !== product._id
-		);
+	// const removeItemFromCart = (product) => {
+	// 	const count = cartCount - 1;
+	// 	const filteredItems = itemsInCart.filter(
+	// 		(item) => item._id !== product._id
+	// 	);
 
-		setCartItems(filteredItems);
-		setCartItemsCount(count);
+	// 	setCartItems(filteredItems);
+	// 	setCartItemsCount(count);
 
-		updateLocalStorage(count, filteredItems);
-	};
+	// 	updateLocalStorage(count, filteredItems);
+	// };
 
-	const updateLocalStorage = (count, cart) => {
-		if (typeof window !== 'undefined') {
-			localStorage.setItem('cartCount', JSON.stringify(count));
-			localStorage.setItem('cart', JSON.stringify(cart));
-		}
-	};
+	// const updateLocalStorage = (count, cart) => {
+	// 	if (typeof window !== 'undefined') {
+	// 		localStorage.setItem('cartCount', JSON.stringify(count));
+	// 		localStorage.setItem('cart', JSON.stringify(cart));
+	// 	}
+	// };
 
 	return (
-		/* <Header /> */
 		<main>
-			<Hero
-				categories={categories}
-				// handleProductFilter={handleProductFilter}
-			/>
+			<Hero categories={categories} />
 			<Categories categories={categories} />
 			<Products products={products} />
 		</main>
