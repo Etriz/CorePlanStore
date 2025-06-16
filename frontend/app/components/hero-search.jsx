@@ -64,7 +64,7 @@ const HeroSearch = () => {
 				handleChange={handleDropdownChange}
 			/>
 			<a
-				className="block w-24 rounded-md bg-teal-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-teal-700 cursor-pointer"
+				className="block w-24 rounded-md bg-violet-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-teal-700 cursor-pointer"
 				href={`/search?${objectToQueryString(searchQuery)}`}>
 				Search
 			</a>

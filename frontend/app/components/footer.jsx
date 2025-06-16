@@ -3,11 +3,11 @@ import React from 'react';
 const Footer = () => {
 	const fullYear = new Date().getFullYear();
 	return (
-		<footer className="flex flex-col bg-gray-100 border-t border-teal-500">
+		<footer className="flex flex-col bg-gray-100 border-t border-violet-500">
 			<div className="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24">
 				<div className="lg:flex lg:items-end lg:justify-between">
 					<div>
-						<div className="flex justify-center text-teal-600 lg:justify-start">
+						<div className="flex justify-center text-violet-600 lg:justify-start">
 							<svg
 								className="h-8"
 								viewBox="0 0 118 24"
@@ -67,7 +67,7 @@ const Footer = () => {
 						<li>
 							<a
 								className="text-gray-700 transition hover:text-gray-700/75"
-								href="#">
+								href="/about">
 								About
 							</a>
 						</li>
@@ -75,7 +75,7 @@ const Footer = () => {
 						<li>
 							<a
 								className="text-gray-700 transition hover:text-gray-700/75"
-								href="#">
+								href="/services">
 								Services
 							</a>
 						</li>
@@ -83,16 +83,8 @@ const Footer = () => {
 						<li>
 							<a
 								className="text-gray-700 transition hover:text-gray-700/75"
-								href="#">
-								Projects
-							</a>
-						</li>
-
-						<li>
-							<a
-								className="text-gray-700 transition hover:text-gray-700/75"
-								href="#">
-								Blog
+								href="/products">
+								Products
 							</a>
 						</li>
 					</ul>
