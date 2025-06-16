@@ -7,7 +7,7 @@ const Cart = () => {
 
 	useEffect(() => {
 		async function fetchLocalStorageCart() {
-			if (typeof window !== undefined) {
+			if (typeof window !== 'undefined') {
 				const localStorageCart =
 					JSON.parse(localStorage.getItem('cart')) || [];
 				setCartItems(localStorageCart);
@@ -31,14 +31,15 @@ const Cart = () => {
 	const removeFromCart = (item) => {
 		const updatedCart = cartItems.filter((ele) => ele != item);
 		setCartItems(updatedCart);
+		setCartTotal(cartTotal - item.price);
 		updateLocalStorage(updatedCart, updatedCart.length);
 	};
 
-	const localStorageCartItem =
-		typeof window !== 'undefined' && localStorage.getItem('cart');
-	const parsedCartItems =
-		localStorageCartItem && JSON.parse(localStorageCartItem);
-	const itemsInCart = cartItems.length > 0 ? cartItems : parsedCartItems;
+	// const localStorageCartItem =
+	// 	typeof window !== 'undefined' && localStorage.getItem('cart');
+	// const parsedCartItems =
+	// 	localStorageCartItem && JSON.parse(localStorageCartItem);
+	// const itemsInCart = cartItems.length > 0 ? cartItems : parsedCartItems;
 
 	return (
 		<div className="py-8 container mx-auto max-w-screen-md">

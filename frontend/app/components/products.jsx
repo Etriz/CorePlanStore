@@ -1,11 +1,6 @@
 import ProductItem from './product-item';
 
 const Products = ({ products }) => {
-	const localStorageCart =
-		typeof window !== 'undefined' && localStorage.getItem('cart');
-	const itemsInCart = localStorageCart ? JSON.parse(localStorageCart) : [];
-	const cartIds = itemsInCart.map((item) => item._id) || [];
-
 	return (
 		<section className="py-16 container m-auto">
 			<div>
@@ -16,12 +11,11 @@ const Products = ({ products }) => {
 							.map((value) => ({ value, sort: Math.random() }))
 							.sort((a, b) => a.sort - b.sort)
 							.map(({ value }) => value)
-							.slice(1)
+							.slice(0, 5)
 							.map((product, index) => (
 								<ProductItem
 									key={`${product._id}-${index}`}
 									product={product}
-									cartIds={cartIds}
 								/>
 							))
 					) : (

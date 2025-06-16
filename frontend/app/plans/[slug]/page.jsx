@@ -78,7 +78,7 @@ function Plan() {
 						<Image
 							className="h-auto w-full max-w-full rounded-md object-cover object-center h-auto m-auto aspect-square"
 							src={gallery[0]?.imageUrl}
-							alt={gallery[0]?.alt}
+							alt={gallery[0]?.alt || 'gallery image'}
 							width="600"
 							height="450"
 						/>
@@ -90,7 +90,7 @@ function Plan() {
 								key={`${image._id}-${index}`}
 								className="object-cover object-center h-20 max-w-full rounded-lg cursor-pointer aspect-square"
 								src={image?.imageUrl}
-								alt={image?.alt || 'gallery-image'}
+								alt={image?.alt || 'gallery image'}
 								width="600"
 								height="450"
 							/>
@@ -114,7 +114,7 @@ function Plan() {
 					</div>
 					<div onClick={addItemToCart}>
 						<a
-							className="inline-flex items-center gap-2 rounded-md border border-teal-600 bg-teal-600 px-8 py-3 w-full text-white hover:bg-teal-700 focus:ring-3 focus:outline-hidden"
+							className="inline-flex items-center gap-2 rounded-md border border-violet-600 bg-violet-600 px-8 py-3 w-full text-white hover:bg-violet-800 focus:ring-3 focus:outline-hidden"
 							href={'/cart'}>
 							<span className="text-md font-medium">
 								Add To Cart
@@ -215,7 +215,7 @@ function Plan() {
 								</dd>
 							</div>
 						) : null}
-						{thisProduct?.interior ? (
+						{thisProduct?.exterior ? (
 							<div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
 								<dt className="font-bold text-gray-900">
 									Exterior Features

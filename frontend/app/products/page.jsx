@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getAllProducts } from '@/lib/sanity/product-query';
 import ProductItem from '../components/product-item';
 
-const allProducts = () => {
+const AllProducts = () => {
 	const [products, setProducts] = useState([]);
 	useEffect(() => {
 		async function fetchProducts() {
@@ -14,11 +14,6 @@ const allProducts = () => {
 		fetchProducts();
 	}, []);
 
-	const localStorageCart =
-		typeof window !== 'undefined' && localStorage.getItem('cart');
-	const itemsInCart = localStorageCart ? JSON.parse(localStorageCart) : [];
-	const cartIds = itemsInCart.map((item) => item._id) || [];
-
 	return (
 		<div className="py-8 container mx-auto max-w-screen-xl">
 			This is the allProducts page
@@ -27,7 +22,6 @@ const allProducts = () => {
 					<ProductItem
 						key={`${product._id}-${index}`}
 						product={product}
-						cartIds={cartIds}
 					/>
 				))}
 			</div>
@@ -35,4 +29,4 @@ const allProducts = () => {
 	);
 };
 
-export default allProducts;
+export default AllProducts;
